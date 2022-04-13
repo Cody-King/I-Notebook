@@ -4,20 +4,19 @@ import Notes from './Notes';
 
 const Home = () => {
     const [open, setopen] = useState(true)
+    const context = useContext(noteContext)
+    const {addNote} = context;
+    const [note, setnote] = useState({title:"", description:"", tag:"default"})
 
     const add = (e) => {
         setopen(!open) 
         e.preventDefault();
     }
 
-    const context = useContext(noteContext)
-    const {addNote} = context;
-
-    const [note, setnote] = useState({title:"", description:"", tag:"default"})
-
     const addclick = (e)=>{
         e.preventDefault();
         addNote(note.title, note.description, note.tag)
+        setopen(!open)
         // add();
     }
     const onchange = (e)=>{
