@@ -5,9 +5,8 @@ import NoteItem from './NoteItem';
 const Notes = () => {
     const [open, setopen] = useState(true)
     const context = useContext(noteContext)
-    const {notes, getNotes} = context;
-    const [note, setnote] = useState({etitle:"", edescription:"", etag:""})
-    console.log(note)
+    const {notes, getNotes, editNote} = context;
+    const [note, setnote] = useState({id:"", etitle:"", edescription:"", etag:""})
     useEffect(() => {getNotes()}, [])
 
     const add = (e) => {
@@ -15,14 +14,15 @@ const Notes = () => {
         e.preventDefault();
     }
     
-    const updateNote = (currentNote)=>{
+    const updateNote = (title, description, tag, id)=>{
+        setnote({id: id, etitle: title, edescription: description, etag: tag})
         setopen(!open)
-        setnote({etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag})
-    }
+    }   
 
     const addclick = (e)=>{
         e.preventDefault();
         setopen(!open)
+        editNote(note.id, note.etitle, note.edescription, note.etag)
     }
     const onchange = (e)=>{
         setnote({...note, [e.target.name]: e.target.value})

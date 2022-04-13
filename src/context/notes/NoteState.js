@@ -22,7 +22,6 @@ const NoteState = (props) => {
 
         // Add a note
         const addNote = async (title, description, tag, id)=>{
-            console.log(id)
             // Api call
             const response = await fetch(`${host}/api/notes/addnote`, {
                 method: 'POST',
@@ -64,7 +63,6 @@ const NoteState = (props) => {
 
         // Edit a note
         const editNote = async (id, title, description, tag)=>{
-            console.log("editing note with id "+id)
             // Api call
             const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
                 method: 'PUT',
@@ -76,15 +74,17 @@ const NoteState = (props) => {
             });
             const json = response.json();
             
-            for (let index = 0; index < notes.length; index++) {
-                const element = notes[index];
+            let newNotes = JSON.parse(JSON.stringify(notes))
+            for (let index = 0; index < newNotes.length; index++) {
+                const element = newNotes[index];
                 if (element._id === id) {
-                    element.title = title;
-                    element.description = description;
-                    element.tag = tag;
+                    newNotes[index].title = title;
+                    newNotes[index].description = description;
+                    newNotes[index].tag = tag;
+                    break;
                 }
-                
             }
+            setNotes(newNotes)
         }
     return (
         <NoteContext.Provider value={{notes, addNote, deleteNote, editNote, getNotes}}>
