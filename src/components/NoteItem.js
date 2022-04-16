@@ -18,7 +18,7 @@ const NoteItem = (props) => {
                     <ul className="menu">
                         <li><i className="fa-solid fa-eye"></i>Review</li>
                         <li onClick={()=>{props.updateNote(props.title, props.description, props.tag, props.id)}}><i className="fa-solid fa-pen"></i>Edit</li>
-                        <li onClick={()=>{deleteNote(props.id)}}><i className="fa-solid fa-trash-can" ></i>Delete</li>
+                        <li onClick={()=>{deleteNote(props.id);props.showAlert("Deleted successfully", "success")}}><i className="fa-solid fa-trash-can" ></i>Delete</li>
                     </ul>
                 </div>
             </div>

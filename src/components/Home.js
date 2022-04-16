@@ -2,11 +2,13 @@ import React, {useState, useContext} from 'react'
 import noteContext from '../context/notes/noteContext'
 import Notes from './Notes';
 
-const Home = () => {
+const Home = (props) => {
+    const {showAlert} = props;
+
     const [open, setopen] = useState(true)
     const context = useContext(noteContext)
     const {addNote} = context;
-    const [note, setnote] = useState({title:"", description:"", tag:"default"})
+    const [note, setnote] = useState({title:"", description:"", tag:""})
 
     const add = (e) => {
         setopen(!open) 
@@ -17,7 +19,8 @@ const Home = () => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag)
         setopen(!open)
-        // add();
+        setnote({title:"", description:"", tag:""})
+        props.showAlert("Added successfully", 'success')
     }
     const onchange = (e)=>{
         setnote({...note, [e.target.name]: e.target.value})
@@ -34,17 +37,17 @@ const Home = () => {
                     <form action="#">
                         <div className="row title">
                             <label>Title</label>
-                            <input type="text" name="title" id="title" onChange={onchange}/>
+                            <input type="text" name="title" id="title" onChange={onchange} value={note.title}/>
                         </div>
                         <div className="row description">
                             <label>Description</label>
-                            <textarea onChange={onchange} id="description" name='description'></textarea>
+                            <textarea onChange={onchange} id="description" name='description' value={note.description}></textarea>
                         </div>
                         <div className="row tag">
                             <label>Tag</label>
-                            <input type="text" name="tag" id="tag" onChange={onchange}/>
+                            <input type="text" name="tag" id="tag" onChange={onchange} value={note.tag}/>
                         </div>
-                        <button onClick={addclick} href="/">Add note</button>
+                        <button disabled={note.title.length === 0 || note.description.length === 0} onClick={addclick} href="/">Add note</button>
                     </form>
                 </div>
             </div>
@@ -54,7 +57,7 @@ const Home = () => {
                     <div className="icon" onClick={add}><i className="fa-solid fa-circle-plus"></i></div>
                     <p>Add new note</p>
                 </li>
-                <Notes/>
+                <Notes showAlert={showAlert}/>
             </div>
         </>
     )
