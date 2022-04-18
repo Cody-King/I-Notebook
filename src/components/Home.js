@@ -52,12 +52,12 @@ const Home = (props) => {
                 </div>
             </div>
         </div>
-            <div className="wrapper">
+            <div className={props.review?"wrapper active":"wrapper"}>
                 <li className='add-box'>
                     <div className="icon" onClick={add}><i className="fa-solid fa-circle-plus"></i></div>
                     <p>Add new note</p>
                 </li>
-                <Notes showAlert={showAlert}/>
+                <Notes showAlert={showAlert} review={props.review} setreview={props.setreview}/>
             </div>
         </>
     )

@@ -1,13 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
 import noteContext from '../context/notes/noteContext'; 
 import NoteItem from './NoteItem';
+import Review from './Review';
 
 const Notes = (props) => {
     let history = useHistory();
     const [open, setopen] = useState(true)
     const context = useContext(noteContext)
-    const {notes, getNotes, editNote} = context;
+    const {notes, getNotes, editNote, setcredentials} = context;
     const [note, setnote] = useState({id:"", etitle:"", edescription:"", etag:""})
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -27,6 +28,13 @@ const Notes = (props) => {
         setnote({id: id, etitle: title, edescription: description, etag: tag})
         setopen(!open)
     }   
+
+    const reviewNote = (rtitle, rdescription, rtag)=>{
+        setcredentials({title: rtitle, description: rdescription, tag: rtag})
+        document.body.querySelector('.reviewWindow').style.right='0px';
+        document.body.querySelector('.container').style.margin='70px 0px';
+        document.body.querySelector('.wrapper').style.gridTemplateColumns='repeat(3, 265px)';
+    }
     
     const addclick = (e)=>{
         e.preventDefault();
@@ -64,8 +72,12 @@ const Notes = (props) => {
                 </div>
             </div>
         </div>
-            {notes.map((note)=>{
-                return <NoteItem key={note._id} updateNote={updateNote} showAlert={props.showAlert} id={note._id} title={note.title} description={note.description} tag={note.tag}/>
+        <Review/>
+            {/* {notes.map((note, index)=>{
+                return <Review index={index} key={note._id} title={note.title} description={note.description} tag={note.tag}/>
+            })} */}
+            {notes.map((note, index)=>{
+                return <NoteItem index={index} key={note._id} reviewNote={reviewNote} updateNote={updateNote} showAlert={props.showAlert} id={note._id} title={note.title} description={note.description} tag={note.tag}/>
             })}
         </>
     )
