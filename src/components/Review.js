@@ -14,7 +14,6 @@ const Review = (props) => {
     const onchange = (e)=>{
         e.preventDefault()
     }
-    console.log(credentials)
     return (
             <div className='reviewWindow'>
             <div className="popup">
@@ -30,11 +29,11 @@ const Review = (props) => {
                         </div>
                         <div className="row description">
                             <label>Description</label>
-                            <textarea placeholder={credentials.description} disabled onChange={onchange} x-moz-errormessage="You can't change this as it is the review window."></textarea>
+                            <textarea defaultValue={credentials.description} disabled onChange={onchange} x-moz-errormessage="You can't change this as it is the review window."></textarea>
                         </div>
                         <div className="row tag">
                             <label>Tag</label>
-                            <input type="text" placeholder={credentials.tag} disabled onChange={onchange} x-moz-errormessage="You can't change this as it is the review window."/>
+                            <input type="text" defaultValue={credentials.tag} disabled onChange={onchange} x-moz-errormessage="You can't change this as it is the review window."/>
                         </div>
                     </form>
                 </div>

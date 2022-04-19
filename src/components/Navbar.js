@@ -30,24 +30,26 @@ const Navbar = (props) => {
     //     });
     // })
 
-    // let menuToggle = document.querySelector('.menuToggle')
-    // let navigation = document.querySelector('.navigation')
+    const search = ()=>{
+        let inputVal = search.value;
+        console.log(inputVal)
+        let note = document.body.querySelector('.wrapper li.note')
+        // console.log(note)
+        Array.from(note).forEach(element => {
+            let title = document.body.querySelector('li.note .details p').innerHTML;
+            if (title.includes(inputVal)) {
+                console.log('milgaya')
+            }
+            else{
+                console.log('nahi mil')
+            }
+            console.log(title)
+        });
+    }
 
-    // const menuClick = ()=>{
-    //     navigation.classList.toggle('active')
-    // }
     return (
         <nav className={`navbar navbar-expand-lg position-sticky navbar-${props.mode} bg-${props.mode}`}>
         <div className="container-fluid">
-            {/* <div className="navigation">
-                <div className="userBx">
-                    <div className="imgBx">
-                        <img src="dev.jpg" alt="" />
-                    </div>
-                    <p className="username">Dev Yadav</p>
-                </div>
-                <div className="menuToggle" onClick={menuClick}></div>
-            </div> */}
             <Link className="navbar-brand title" to="/"><i className="fa-solid fa-book icon"> I-Notebook</i></Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -72,10 +74,13 @@ const Navbar = (props) => {
                 </li>
             </ul>
             {!localStorage.getItem('token')?<form className="d-flex">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                 <Link className="btn btn-outline-success mx-2" type="submit" to="/login">Login</Link>
                 <Link className="btn btn-outline-success" type="submit" to="/signup">SignUp</Link>
-            </form>: <button className="btn btn-outline-success" onClick={logout} type="submit">Logout</button>}
+            </form>:<><form className="d-flex">
+                    <input className="form-control me-2" onInput={search} type="search" placeholder="Search" aria-label="Search"/>
+                    <button className="btn btn-outline-success" onClick={logout} type="submit">Logout</button>
+                    </form>
+                </>}
             </div>
         </div>
         </nav>

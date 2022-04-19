@@ -17,7 +17,7 @@ const Notes = (props) => {
         else{
             history.push('/login')
         }
-    },[])
+    },[getNotes, history])
 
     const add = (e) => {
         setopen(!open)
@@ -73,9 +73,6 @@ const Notes = (props) => {
             </div>
         </div>
         <Review/>
-            {/* {notes.map((note, index)=>{
-                return <Review index={index} key={note._id} title={note.title} description={note.description} tag={note.tag}/>
-            })} */}
             {notes.map((note, index)=>{
                 return <NoteItem index={index} key={note._id} reviewNote={reviewNote} updateNote={updateNote} showAlert={props.showAlert} id={note._id} title={note.title} description={note.description} tag={note.tag}/>
             })}

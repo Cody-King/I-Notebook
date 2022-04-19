@@ -1,27 +1,16 @@
 import React, {useContext} from 'react'
 import noteContext from '../context/notes/noteContext'; 
-import Review from './Review';
 
 const NoteItem = (props) => {
     const context = useContext(noteContext)
     const {deleteNote} = context
-
-    // const toggleRev = ()=>{
-    //     props.setreview(!props.review)
-    // }
-    // console.log(props.index)
-
-    const toggleRev = ()=>{
-        console.log(props.id, props.title, props.description, props.tag)
-        return props.title;
-    }
 
     return (
         <>
         <li className="note">  
             <div className="details">
                 <p>{props.title}</p>
-                <span>{props.description}</span>
+                <span>{props.description.length>80?props.description.slice(0,80)+"...":props.description}</span>
             </div>
             <div className="bottom-content">
                 <span>April 10, 2022</span>
@@ -35,7 +24,6 @@ const NoteItem = (props) => {
                 </div>
             </div>
         </li>
-        {/* <Review toggleRev={toggleRev}/> */}
         </>
     )
 }
